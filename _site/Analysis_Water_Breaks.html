@@ -1,0 +1,1217 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.38">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Football Momentum Analysis – Maayan’s Portfolio</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-a0f9fd0d421825b736dc1bbcbcba2219.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">Maayan’s Portfolio</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link active" href="./Analysis_Water_Breaks.html" aria-current="page"> 
+<span class="menu-text">Football Analytics</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./about.html"> 
+<span class="menu-text">About</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#defining-momentum-break-points" id="toc-defining-momentum-break-points" class="nav-link active" data-scroll-target="#defining-momentum-break-points">Defining Momentum Break Points</a>
+  <ul class="collapse">
+  <li><a href="#the-zero-cross-rule-signal-direction" id="toc-the-zero-cross-rule-signal-direction" class="nav-link" data-scroll-target="#the-zero-cross-rule-signal-direction">1. The Zero-Cross Rule (Signal Direction)</a></li>
+  <li><a href="#the-derivative-based-shift-power" id="toc-the-derivative-based-shift-power" class="nav-link" data-scroll-target="#the-derivative-based-shift-power">2. The Derivative-Based Shift Power</a></li>
+  <li><a href="#the-sustainability-constraint-temporal-consistency" id="toc-the-sustainability-constraint-temporal-consistency" class="nav-link" data-scroll-target="#the-sustainability-constraint-temporal-consistency">3. The Sustainability Constraint (Temporal Consistency)</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Football Momentum Analysis</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p><strong>Do hydration breaks in football actually affect match momentum?</strong> Well, depending on who you ask, the answer is either a definite yes, a hard no, or somewhere in between.</p>
+<p>Hydration breaks are a relatively new concept in football. They were officially trialed during the Club World Cup in the summer of 2025 as a kind of dry run for the 2026 World Cup. Ever since, they’ve been a major point of contention. For fans watching at home, it’s mostly just frustrating - an unwanted commercial break right when the game starts to get good.</p>
+<p>But it’s not just the fans complaining. Throughout the group stage, several players and coaching staff have spoken out against these breaks, arguing that they completely kill their rhythm and momentum.</p>
+<p>Interestingly, these complaints often come from the “underdog” camps. For instance, after Jordan’s match against Austria - a game that was tied 1-1 with Jordan looking dangerous - the team’s staff felt the hydration break in the second half knocked them off balance. Shortly after play resumed, they conceded twice and ended up losing the match.</p>
+<p>Even the German national team coach weighed in after their game against Curaçao. Curaçao had been the surprise of the tournament, holding Germany to a 1-1 draw and looking really sharp. But right after the first hydration break, they suddenly conceded two goals before halftime and eventually lost 7-1. Would the result have been different for little Curaçao if not for that break? It’s impossible to say for sure. Football is chaotic, unpredictable, and influenced by a million different things every second.</p>
+<p>After several group stage matches, an assumption emerged that these drinks breaks could trigger a momentum shift. Others believed that the breaks actually kill momentum and slow the game down. In football, as usual, there is no single truth, and it all depends on the fan’s perspective. I thought it would be interesting to see what the data actually says.</p>
+<p><img src="https://cassette.sphdigital.com.sg/image/straitstimes/b6d0bccb706ec1d9a92e927a59cb50d4e3ae831a9fb1d934c00712ababbfbcbb" width="600"></p>
+<p><strong>So, how do you actually measure something as elusive as “momentum”?</strong></p>
+<p>Football is going through a massive wave of “Americanization” right now. The world’s most popular game is becoming deeply data-driven, and we’re seeing advanced analytics applied to every single touch of the ball. To track momentum, I needed a way to quantify it minute-by-minute.</p>
+<p>Luckily, I could tap into <a href="https://www.sofascore.com/">Sofascore’s</a> “Live Attack Momentum” data. In a nutshell, their algorithm calculates a live score for each team by weighing high-intensity events like dangerous attacks, shots on target, and shots off target, while also considering ball possession in dangerous areas. It essentially translates the “vibe” of the game into a concrete numerical value for every single minute.</p>
+<p>I managed to scrape this momentum data for every match of the World Cup leading up to the semifinals. On top of that, I pulled official match event logs - recording exactly when hydration breaks happened, when shots were taken, and even pre-match betting odds to categorize teams as either “favorites” or “underdogs.” the code i used can be reviewed <a href="https://github.com/maayansarfati/Sofascore-scrape.git">here</a>.</p>
+<p>With all that in the bag, I finally had the raw material to start answering whether these hydration breaks are just a nuisance for the fans, or a genuine game-changer for the players.</p>
+<p>Once the data was in my hands, the real challenge began: how do you actually pinpoint the moment momentum shifts? There is no clear-cut, textbook answer for this. My approach was a mix of intense trial-and-error and my own intuition as a football fan of over 20 years.</p>
+<p>The data for each match is structured quite simply: every minute is assigned an “Attacking Threat” score. Positive values indicate momentum for the home team, while negative values point toward the away team.</p>
+<div id="f42f9129" class="cell" data-execution_count="1">
+<details class="code-fold">
+<summary>View Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.interpolate <span class="im">import</span> make_interp_spline</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> warnings</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>warnings.filterwarnings(<span class="st">'ignore'</span>)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the dataset</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(<span class="st">'world_cup_momentum_dataset.csv'</span>)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> df[df[<span class="st">'minute'</span>] <span class="op">==</span> df[<span class="st">'minute'</span>].astype(<span class="bu">int</span>)]</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter for minutes 1 to 90 for the plot</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>df_plot <span class="op">=</span> df[(df[<span class="st">'minute'</span>] <span class="op">&gt;=</span> <span class="dv">1</span>) <span class="op">&amp;</span> (df[<span class="st">'minute'</span>] <span class="op">&lt;=</span> <span class="dv">90</span>)].copy()</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate the plot</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">6</span>))</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>sns.histplot(df_plot[<span class="st">'value'</span>], bins<span class="op">=</span><span class="dv">50</span>, kde<span class="op">=</span><span class="va">True</span>, color<span class="op">=</span><span class="st">'#2c3e50'</span>)</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Distribution of Attacking Threat Scores (Minutes 1-90)'</span>, fontsize<span class="op">=</span><span class="dv">14</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>)</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Attacking Threat Score'</span>, fontsize<span class="op">=</span><span class="dv">12</span>)</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Frequency'</span>, fontsize<span class="op">=</span><span class="dv">12</span>)</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>plt.grid(axis<span class="op">=</span><span class="st">'y'</span>, alpha<span class="op">=</span><span class="fl">0.3</span>)</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Analysis_Water_Breaks_files/figure-html/cell-2-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>My intuition led me to a rolling window approach. For any given minute, I look at the five minutes before and the five minutes after. I calculate the average momentum in both windows and look at the difference. To formalize this, let <span class="math inline">\(\Delta\)</span> represent the shift in momentum for a given minute <span class="math inline">\(t\)</span>. If we denote the average momentum of the 5 minutes preceding <span class="math inline">\(t\)</span> as <span class="math inline">\(\bar{M}_{pre}\)</span> and the average momentum of the 5 minutes following <span class="math inline">\(t\)</span> as <span class="math inline">\(\bar{M}_{post}\)</span>, the momentum shift is defined as:<span class="math display">\[\Delta_t = \bar{M}_{post} - \bar{M}_{pre}\]</span>If <span class="math inline">\(\vert{}\Delta_t\vert{} &gt; 30\)</span>, I flag the minute as a potential ‘break point’.</p>
+<p>Why 30? There’s no magic formula here. After staring at the data and its distribution, 30 felt like the right threshold to filter out the “noise” of a normal match. But I’l try to make sure the treshold is vaild.</p>
+<div id="1bf35f48" class="cell" data-execution_count="2">
+<details class="code-fold">
+<summary>View Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ==========================================</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Calculate Rolling Metrics on Full Dataset</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co"># ==========================================</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> add_metrics(group):</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    group[<span class="st">'m_pre'</span>] <span class="op">=</span> group[<span class="st">'value'</span>].rolling(window<span class="op">=</span><span class="dv">5</span>).mean().shift(<span class="dv">1</span>)</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    group[<span class="st">'m_post'</span>] <span class="op">=</span> group[<span class="st">'value'</span>].rolling(window<span class="op">=</span><span class="dv">5</span>).mean().shift(<span class="op">-</span><span class="dv">5</span>)</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    group[<span class="st">'delta'</span>] <span class="op">=</span> (group[<span class="st">'m_post'</span>] <span class="op">-</span> group[<span class="st">'m_pre'</span>]).<span class="bu">abs</span>().<span class="bu">round</span>(<span class="dv">2</span>)</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    group[<span class="st">'trend'</span>] <span class="op">=</span> np.sign(group[<span class="st">'m_post'</span>] <span class="op">-</span> group[<span class="st">'m_pre'</span>])</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> group</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>df_calc <span class="op">=</span> df.groupby(<span class="st">'match_id'</span>, group_keys<span class="op">=</span><span class="va">False</span>).<span class="bu">apply</span>(add_metrics)</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="co"># ==========================================</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Nullify Invalid Minutes (DO NOT DELETE ROWS)</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="co"># ==========================================</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>valid_mask <span class="op">=</span> ((df_calc[<span class="st">'minute'</span>] <span class="op">&gt;=</span> <span class="dv">6</span>) <span class="op">&amp;</span> (df_calc[<span class="st">'minute'</span>] <span class="op">&lt;=</span> <span class="dv">40</span>)) <span class="op">|</span> <span class="op">\</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>             ((df_calc[<span class="st">'minute'</span>] <span class="op">&gt;=</span> <span class="dv">51</span>) <span class="op">&amp;</span> (df_calc[<span class="st">'minute'</span>] <span class="op">&lt;=</span> <span class="dv">85</span>))</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Retain all rows while setting delta to zero for invalid minutes</span></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>df_all <span class="op">=</span> df_calc.copy()</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>df_all.loc[<span class="op">~</span>valid_mask, <span class="st">'delta'</span>] <span class="op">=</span> <span class="dv">0</span> </span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a><span class="co"># Reset moving average values to avoid artifacts in the plots</span></span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>df_all.loc[<span class="op">~</span>valid_mask, <span class="st">'m_pre'</span>] <span class="op">=</span> np.nan</span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>df_all.loc[<span class="op">~</span>valid_mask, <span class="st">'m_post'</span>] <span class="op">=</span> np.nan</span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a><span class="co"># ==========================================</span></span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. Plot Absolute Delta for Valid Minutes Only</span></span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a><span class="co"># ==========================================</span></span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>delta_clean <span class="op">=</span> df_all.loc[valid_mask, <span class="st">'delta'</span>].dropna()</span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>delta_std <span class="op">=</span> delta_clean.std()</span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">6</span>))</span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>sns.histplot(delta_clean, bins<span class="op">=</span><span class="dv">60</span>, kde<span class="op">=</span><span class="va">True</span>, color<span class="op">=</span><span class="st">'#e67e22'</span>)</span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a>plt.axvline(x<span class="op">=</span>delta_std <span class="op">*</span> <span class="dv">2</span>, color<span class="op">=</span><span class="st">'black'</span>, linestyle<span class="op">=</span><span class="st">'--'</span>, label<span class="op">=</span><span class="ss">f'2 Std Dev (</span><span class="sc">{</span>delta_std<span class="op">*</span><span class="dv">2</span><span class="sc">:.1f}</span><span class="ss">)'</span>)</span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Distribution of Absolute Momentum Shifts (|Delta|)'</span>, fontsize<span class="op">=</span><span class="dv">14</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>)</span>
+<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Magnitude of Momentum Shift (|Delta|)'</span>, fontsize<span class="op">=</span><span class="dv">12</span>)</span>
+<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Frequency'</span>, fontsize<span class="op">=</span><span class="dv">12</span>)</span>
+<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
+<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a>plt.grid(axis<span class="op">=</span><span class="st">'y'</span>, alpha<span class="op">=</span><span class="fl">0.3</span>)</span>
+<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Standard Deviation of Absolute Delta: </span><span class="sc">{</span>delta_std<span class="sc">:.2f}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Analysis_Water_Breaks_files/figure-html/cell-3-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Standard Deviation of Absolute Delta: 16.43</code></pre>
+</div>
+</div>
+<p>As we can see, two standard deviations amount to exactly 32.9. This gives me great confidence in choosing 30 as my threshold.</p>
+<section id="defining-momentum-break-points" class="level2">
+<h2 class="anchored" data-anchor-id="defining-momentum-break-points">Defining Momentum Break Points</h2>
+<p>Defining a momentum threshold is just the first step. The real challenge is that not every spike in data corresponds to a genuine momentum shift. My initial approach was simple: flag every minute where the absolute delta exceeded 30. However, this produced too much “noise” - it captured minor fluctuations and missed the true turning points that define the flow of a match.</p>
+<p>To move from basic data filtering to actual <strong>break point detection</strong>, I treated the momentum graph as a continuous function <span class="math inline">\(M(t)\)</span> and analyzed its derivatives. I implemented three formal filters to ensure my break points were statistically and tactically significant:</p>
+<section id="the-zero-cross-rule-signal-direction" class="level3">
+<h3 class="anchored" data-anchor-id="the-zero-cross-rule-signal-direction">1. The Zero-Cross Rule (Signal Direction)</h3>
+<p>A momentum shift is only a “break point” if it indicates a transition in control. Mathematically, I ensure that the sign of the momentum changes between the pre-event and post-event windows: <span class="math display">\[\text{sgn}(\bar{M}_{pre}) \neq \text{sgn}(\bar{M}_{post})\]</span> This acts as a logical gate, ensuring we are isolating a flip in dominance, not just a temporary surge within the same team’s period of control.</p>
+</section>
+<section id="the-derivative-based-shift-power" class="level3">
+<h3 class="anchored" data-anchor-id="the-derivative-based-shift-power">2. The Derivative-Based Shift Power</h3>
+<p>I wanted to capture not just the occurrence of a change, but its <strong>aggression</strong>. I calculated two distinct approximations of the first derivative: * <strong>Immediate derivative:</strong> <span class="math inline">\(D_1 = M_{t+1} - M_t\)</span> * <strong>Broader derivative:</strong> <span class="math inline">\(D_3 = M_{t+3} - M_t\)</span></p>
+<p>By combining these into a <code>shift_power</code> metric - defined as <span class="math inline">\(S = D_1 + D_3\)</span> - I created a sensitivity filter that prioritizes moments where the momentum is not only changing but accelerating rapidly. This serves as a second-order indicator of how strongly a team is seizing control.</p>
+</section>
+<section id="the-sustainability-constraint-temporal-consistency" class="level3">
+<h3 class="anchored" data-anchor-id="the-sustainability-constraint-temporal-consistency">3. The Sustainability Constraint (Temporal Consistency)</h3>
+<p>To filter out “noisy” outliers, I added a sustainability check. I require the sign of the momentum to remain consistent over a 3-minute window: <span class="math display">\[\sum_{i=0}^{3} \text{sgn}(M_{t+i}) \geq 3\]</span> This ensures that the shift represents a sustained change in the match state rather than a momentary flash.</p>
+<hr>
+<p>By combining these filters - the zero-cross logic, the derivative-based acceleration metric (<span class="math inline">\(S\)</span>), and the sustainability constraint - I created an engine that mimics how I, a random fan, “sees” the game. It effectively filters out the random chaos of football and isolates the moments where the tide truly turns.</p>
+<div id="cc35cb8b" class="cell" data-execution_count="3">
+<details class="code-fold">
+<summary>View Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ==========================================</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. Break Point Detection: The Detection Engine</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co"># ==========================================</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> find_break_points_ultimate(df_match):</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    df_match <span class="op">=</span> df_match.copy()</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    df_match[<span class="st">'is_break_point'</span>] <span class="op">=</span> <span class="va">False</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 1. First-Order Derivatives</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    df_match[<span class="st">'diff_1'</span>] <span class="op">=</span> df_match[<span class="st">'value'</span>].shift(<span class="op">-</span><span class="dv">1</span>) <span class="op">-</span> df_match[<span class="st">'value'</span>]</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    df_match[<span class="st">'diff_3'</span>] <span class="op">=</span> df_match[<span class="st">'value'</span>].shift(<span class="op">-</span><span class="dv">3</span>) <span class="op">-</span> df_match[<span class="st">'value'</span>]</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>    df_match[<span class="st">'shift_power'</span>] <span class="op">=</span> df_match[<span class="st">'diff_1'</span>] <span class="op">+</span> df_match[<span class="st">'diff_3'</span>]</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 2. Zero-Cross Rule</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>    is_momentum_flip <span class="op">=</span> np.sign(df_match[<span class="st">'m_pre'</span>]) <span class="op">!=</span> np.sign(df_match[<span class="st">'m_post'</span>])</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>    df_match[<span class="st">'is_high_delta_zone'</span>] <span class="op">=</span> (df_match[<span class="st">'delta'</span>] <span class="op">&gt;=</span> <span class="dv">30</span>) <span class="op">&amp;</span> is_momentum_flip</span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 3. Block Analysis</span></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>    df_match[<span class="st">'block_id'</span>] <span class="op">=</span> (df_match[<span class="st">'is_high_delta_zone'</span>] <span class="op">!=</span> df_match[<span class="st">'is_high_delta_zone'</span>].shift(<span class="dv">1</span>)).cumsum()</span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>    high_blocks <span class="op">=</span> df_match[df_match[<span class="st">'is_high_delta_zone'</span>]]</span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> block_id, block <span class="kw">in</span> high_blocks.groupby(<span class="st">'block_id'</span>):</span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>        start_idx <span class="op">=</span> block.index[<span class="dv">0</span>]</span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>        end_idx <span class="op">=</span> block.index[<span class="op">-</span><span class="dv">1</span>]</span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>        trend <span class="op">=</span> block[<span class="st">'trend'</span>].mean()</span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>        search_window <span class="op">=</span> df_match.loc[<span class="bu">max</span>(<span class="dv">0</span>, start_idx <span class="op">-</span> <span class="dv">5</span>):end_idx]</span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="bu">len</span>(search_window) <span class="op">&gt;</span> <span class="dv">3</span>:</span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> trend <span class="op">&lt;</span> <span class="dv">0</span>:</span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a>                valid_candidates <span class="op">=</span> search_window[search_window[<span class="st">'diff_1'</span>] <span class="op">&lt;</span> <span class="dv">0</span>]</span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a>                <span class="cf">if</span> <span class="kw">not</span> valid_candidates.empty:</span>
+<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a>                    sorted_candidates <span class="op">=</span> valid_candidates.sort_values(<span class="st">'shift_power'</span>, ascending<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a>                    <span class="cf">for</span> break_point_idx <span class="kw">in</span> sorted_candidates.index:</span>
+<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a>                        <span class="co"># 4. Sustainability Check</span></span>
+<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a>                        next_mins <span class="op">=</span> df_match.loc[break_point_idx : break_point_idx <span class="op">+</span> <span class="dv">3</span>, <span class="st">'value'</span>]</span>
+<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a>                        <span class="cf">if</span> (next_mins <span class="op">&lt;</span> <span class="dv">0</span>).<span class="bu">sum</span>() <span class="op">&gt;=</span> <span class="dv">3</span>:</span>
+<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a>                            df_match.loc[break_point_idx, <span class="st">'is_break_point'</span>] <span class="op">=</span> <span class="va">True</span></span>
+<span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a>                            <span class="cf">break</span> </span>
+<span id="cb4-39"><a href="#cb4-39" aria-hidden="true" tabindex="-1"></a>                            </span>
+<span id="cb4-40"><a href="#cb4-40" aria-hidden="true" tabindex="-1"></a>            <span class="cf">else</span>:</span>
+<span id="cb4-41"><a href="#cb4-41" aria-hidden="true" tabindex="-1"></a>                valid_candidates <span class="op">=</span> search_window[search_window[<span class="st">'diff_1'</span>] <span class="op">&gt;</span> <span class="dv">0</span>]</span>
+<span id="cb4-42"><a href="#cb4-42" aria-hidden="true" tabindex="-1"></a>                <span class="cf">if</span> <span class="kw">not</span> valid_candidates.empty:</span>
+<span id="cb4-43"><a href="#cb4-43" aria-hidden="true" tabindex="-1"></a>                    sorted_candidates <span class="op">=</span> valid_candidates.sort_values(<span class="st">'shift_power'</span>, ascending<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb4-44"><a href="#cb4-44" aria-hidden="true" tabindex="-1"></a>                    <span class="cf">for</span> break_point_idx <span class="kw">in</span> sorted_candidates.index:</span>
+<span id="cb4-45"><a href="#cb4-45" aria-hidden="true" tabindex="-1"></a>                        <span class="co"># 4. Sustainability Check</span></span>
+<span id="cb4-46"><a href="#cb4-46" aria-hidden="true" tabindex="-1"></a>                        next_mins <span class="op">=</span> df_match.loc[break_point_idx : break_point_idx <span class="op">+</span> <span class="dv">3</span>, <span class="st">'value'</span>]</span>
+<span id="cb4-47"><a href="#cb4-47" aria-hidden="true" tabindex="-1"></a>                        <span class="cf">if</span> (next_mins <span class="op">&gt;</span> <span class="dv">0</span>).<span class="bu">sum</span>() <span class="op">&gt;=</span> <span class="dv">3</span>:</span>
+<span id="cb4-48"><a href="#cb4-48" aria-hidden="true" tabindex="-1"></a>                            df_match.loc[break_point_idx, <span class="st">'is_break_point'</span>] <span class="op">=</span> <span class="va">True</span></span>
+<span id="cb4-49"><a href="#cb4-49" aria-hidden="true" tabindex="-1"></a>                            <span class="cf">break</span> </span>
+<span id="cb4-50"><a href="#cb4-50" aria-hidden="true" tabindex="-1"></a>                            </span>
+<span id="cb4-51"><a href="#cb4-51" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Clean up helper columns</span></span>
+<span id="cb4-52"><a href="#cb4-52" aria-hidden="true" tabindex="-1"></a>    df_match <span class="op">=</span> df_match.drop(columns<span class="op">=</span>[<span class="st">'diff_1'</span>, <span class="st">'diff_3'</span>, <span class="st">'shift_power'</span>])</span>
+<span id="cb4-53"><a href="#cb4-53" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> df_match</span>
+<span id="cb4-54"><a href="#cb4-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-55"><a href="#cb4-55" aria-hidden="true" tabindex="-1"></a><span class="co"># Execute on df_all containing all 90 minutes so shift and loc operations align correctly</span></span>
+<span id="cb4-56"><a href="#cb4-56" aria-hidden="true" tabindex="-1"></a>df_final <span class="op">=</span> df_all.groupby(<span class="st">'match_id'</span>, group_keys<span class="op">=</span><span class="va">False</span>).<span class="bu">apply</span>(find_break_points_ultimate)</span>
+<span id="cb4-57"><a href="#cb4-57" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-58"><a href="#cb4-58" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Total break points identified: </span><span class="sc">{</span>df_final[<span class="st">'is_break_point'</span>]<span class="sc">.</span><span class="bu">sum</span>()<span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Total break points identified: 319</code></pre>
+</div>
+</div>
+<p>So, we ended up with 319 momentum shifts across 99 matches, which averages out to just over 3 shifts per game. Intuitively, that might sound a bit low. When most of us picture a football match, we think of those exciting, end-to-end moments where teams constantly trade attacks and the game shifts rapidly from one penalty box to the other.</p>
+<p>But it’s important to remember how we defined momentum here: we are looking for sustained periods of effective attacking. A true momentum break point requires a solid sequence of minutes on both sides of the shift where each team is genuinely threatening the goal. In reality, a typical football match includes a lot of feeling the opponent out, ineffective sideways passes, time-wasting, and long stretches where not much actually happens.</p>
+<p>This is especially true in international football, where the overall level of play is often lower than in club football. On top of that, with the expanded format of this World Cup, many games matched top-tier nations against much smaller ones, which naturally resulted in more one-sided matches.</p>
+<p>Next, we want to check if the momentum break points we calculated actually align with the overall momentum flow of the matches. To do this, we’ll visualize the momentum data on a graph and mark the break points, drinks breaks, and goals. This will let us see everything in context and get a good visual feel for whether our model is actually working well.</p>
+<div id="ea3a21be" class="cell" data-execution_count="4">
+<details class="code-fold">
+<summary>View Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Load team metadata</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>df_meta <span class="op">=</span> pd.read_csv(<span class="vs">r"all_minutes_momentum_analysis</span><span class="dv">.</span><span class="vs">csv"</span>)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>meta_cols <span class="op">=</span> [<span class="st">'match_id'</span>, <span class="st">'home_team'</span>, <span class="st">'away_team'</span>, <span class="st">'favorite_team'</span>, <span class="st">'underdog_team'</span>]</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>df_meta <span class="op">=</span> df_meta[meta_cols].drop_duplicates()</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Load event data (goals + drinks breaks)</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>df_events <span class="op">=</span> pd.read_csv(<span class="vs">r"world_cup_match_events</span><span class="dv">.</span><span class="vs">csv"</span>)</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter goals</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>df_goals <span class="op">=</span> df_events[df_events[<span class="st">'event_type'</span>].<span class="bu">str</span>.lower() <span class="op">==</span> <span class="st">'goal'</span>].copy()</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>df_goals[<span class="st">'is_goal'</span>] <span class="op">=</span> <span class="va">True</span></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>df_goals <span class="op">=</span> df_goals[[<span class="st">'match_id'</span>, <span class="st">'minute'</span>, <span class="st">'is_goal'</span>]].drop_duplicates()</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter drinks breaks</span></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>df_drinks <span class="op">=</span> df_events[df_events[<span class="st">'event_type'</span>].<span class="bu">str</span>.lower() <span class="op">==</span> <span class="st">'drinks_break'</span>].copy()</span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>df_drinks[<span class="st">'is_exact_drinks_break'</span>] <span class="op">=</span> <span class="va">True</span></span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>df_drinks <span class="op">=</span> df_drinks[[<span class="st">'match_id'</span>, <span class="st">'minute'</span>, <span class="st">'is_exact_drinks_break'</span>]].drop_duplicates()</span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. Merge event and team metadata into df_final</span></span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>df_final <span class="op">=</span> df_final.merge(df_meta, on<span class="op">=</span><span class="st">'match_id'</span>, how<span class="op">=</span><span class="st">'left'</span>)</span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>df_final <span class="op">=</span> df_final.merge(df_goals, on<span class="op">=</span>[<span class="st">'match_id'</span>, <span class="st">'minute'</span>], how<span class="op">=</span><span class="st">'left'</span>)</span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>df_final <span class="op">=</span> df_final.merge(df_drinks, on<span class="op">=</span>[<span class="st">'match_id'</span>, <span class="st">'minute'</span>], how<span class="op">=</span><span class="st">'left'</span>)</span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a><span class="co"># Fill missing event flags with False</span></span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a>df_final[<span class="st">'is_goal'</span>] <span class="op">=</span> df_final[<span class="st">'is_goal'</span>].fillna(<span class="va">False</span>)</span>
+<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a>df_final[<span class="st">'is_exact_drinks_break'</span>] <span class="op">=</span> df_final[<span class="st">'is_exact_drinks_break'</span>].fillna(<span class="va">False</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<div id="c4ff3025" class="cell" data-execution_count="5">
+<details class="code-fold">
+<summary>View Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> plot_match_momentum(match_id, df, ax<span class="op">=</span><span class="va">None</span>):</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co">    Plots the momentum flow, break points, drinks breaks, and goals for a specific match.</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co">    Supports plotting inside subplots using the optional 'ax' parameter.</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    df_match <span class="op">=</span> df[df[<span class="st">'match_id'</span>] <span class="op">==</span> match_id].copy()</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    df_match <span class="op">=</span> df_match.drop_duplicates(subset<span class="op">=</span>[<span class="st">'minute'</span>]).sort_values(<span class="st">'minute'</span>)</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> df_match.empty:</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"Match ID </span><span class="sc">{</span>match_id<span class="sc">}</span><span class="ss"> not found in dataset."</span>)</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>    home_team <span class="op">=</span> df_match[<span class="st">'home_team'</span>].iloc[<span class="dv">0</span>] <span class="cf">if</span> <span class="st">'home_team'</span> <span class="kw">in</span> df_match.columns <span class="cf">else</span> <span class="st">'Home Team'</span></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>    away_team <span class="op">=</span> df_match[<span class="st">'away_team'</span>].iloc[<span class="dv">0</span>] <span class="cf">if</span> <span class="st">'away_team'</span> <span class="kw">in</span> df_match.columns <span class="cf">else</span> <span class="st">'Away Team'</span></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>    x <span class="op">=</span> df_match[<span class="st">'minute'</span>].values</span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>    y <span class="op">=</span> df_match[<span class="st">'value'</span>].values</span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Smoothing via spline interpolation</span></span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>    spl <span class="op">=</span> make_interp_spline(x, y, k<span class="op">=</span><span class="dv">3</span>)</span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>    x_smooth <span class="op">=</span> np.linspace(x.<span class="bu">min</span>(), x.<span class="bu">max</span>(), <span class="dv">300</span>)</span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>    y_smooth <span class="op">=</span> spl(x_smooth)</span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Initialize standalone plot or use the provided axes</span></span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> ax <span class="kw">is</span> <span class="va">None</span>:</span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a>        fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">16</span>, <span class="dv">7</span>))</span>
+<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a>        is_standalone <span class="op">=</span> <span class="va">True</span></span>
+<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a>        is_standalone <span class="op">=</span> <span class="va">False</span></span>
+<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Define symmetric y-axis limits</span></span>
+<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a>    max_abs_val <span class="op">=</span> <span class="bu">max</span>(<span class="bu">abs</span>(y_smooth.<span class="bu">min</span>()), <span class="bu">abs</span>(y_smooth.<span class="bu">max</span>()))</span>
+<span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a>    padding <span class="op">=</span> max_abs_val <span class="op">*</span> <span class="fl">0.15</span> </span>
+<span id="cb7-34"><a href="#cb7-34" aria-hidden="true" tabindex="-1"></a>    ax.set_ylim(<span class="op">-</span>(max_abs_val <span class="op">+</span> padding), (max_abs_val <span class="op">+</span> padding))</span>
+<span id="cb7-35"><a href="#cb7-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-36"><a href="#cb7-36" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Fill the area under the momentum curve</span></span>
+<span id="cb7-37"><a href="#cb7-37" aria-hidden="true" tabindex="-1"></a>    ax.fill_between(x_smooth, y_smooth, <span class="dv">0</span>, where<span class="op">=</span>(y_smooth <span class="op">&gt;</span> <span class="dv">0</span>), color<span class="op">=</span><span class="st">'#d9534f'</span>, alpha<span class="op">=</span><span class="fl">0.6</span>, label<span class="op">=</span><span class="ss">f'</span><span class="sc">{</span>home_team<span class="sc">}</span><span class="ss"> Threat'</span>)</span>
+<span id="cb7-38"><a href="#cb7-38" aria-hidden="true" tabindex="-1"></a>    ax.fill_between(x_smooth, y_smooth, <span class="dv">0</span>, where<span class="op">=</span>(y_smooth <span class="op">&lt;</span> <span class="dv">0</span>), color<span class="op">=</span><span class="st">'#5bc0de'</span>, alpha<span class="op">=</span><span class="fl">0.6</span>, label<span class="op">=</span><span class="ss">f'</span><span class="sc">{</span>away_team<span class="sc">}</span><span class="ss"> Threat'</span>)</span>
+<span id="cb7-39"><a href="#cb7-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-40"><a href="#cb7-40" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Zero momentum baseline</span></span>
+<span id="cb7-41"><a href="#cb7-41" aria-hidden="true" tabindex="-1"></a>    ax.axhline(<span class="dv">0</span>, color<span class="op">=</span><span class="st">'black'</span>, linewidth<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb7-42"><a href="#cb7-42" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb7-43"><a href="#cb7-43" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Half-time indicator</span></span>
+<span id="cb7-44"><a href="#cb7-44" aria-hidden="true" tabindex="-1"></a>    ax.axvline(x<span class="op">=</span><span class="dv">45</span>, color<span class="op">=</span><span class="st">'black'</span>, linestyle<span class="op">=</span><span class="st">'-.'</span>, linewidth<span class="op">=</span><span class="dv">2</span>, alpha<span class="op">=</span><span class="fl">0.8</span>, label<span class="op">=</span><span class="st">'Half Time'</span>)</span>
+<span id="cb7-45"><a href="#cb7-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-46"><a href="#cb7-46" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Drinks break windows</span></span>
+<span id="cb7-47"><a href="#cb7-47" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="st">'is_exact_drinks_break'</span> <span class="kw">in</span> df_match.columns:</span>
+<span id="cb7-48"><a href="#cb7-48" aria-hidden="true" tabindex="-1"></a>        exact_drinks <span class="op">=</span> df_match[df_match[<span class="st">'is_exact_drinks_break'</span>]][<span class="st">'minute'</span>]</span>
+<span id="cb7-49"><a href="#cb7-49" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="kw">not</span> exact_drinks.empty:</span>
+<span id="cb7-50"><a href="#cb7-50" aria-hidden="true" tabindex="-1"></a>            <span class="cf">for</span> db <span class="kw">in</span> exact_drinks:</span>
+<span id="cb7-51"><a href="#cb7-51" aria-hidden="true" tabindex="-1"></a>                ax.axvline(x<span class="op">=</span>db, color<span class="op">=</span><span class="st">'#3498db'</span>, linestyle<span class="op">=</span><span class="st">':'</span>, linewidth<span class="op">=</span><span class="fl">2.5</span>, label<span class="op">=</span><span class="st">'Drinks Break (Exact)'</span> <span class="cf">if</span> db <span class="op">==</span> exact_drinks.iloc[<span class="dv">0</span>] <span class="cf">else</span> <span class="st">""</span>)</span>
+<span id="cb7-52"><a href="#cb7-52" aria-hidden="true" tabindex="-1"></a>                ax.axvspan(db <span class="op">-</span> <span class="dv">1</span>, db <span class="op">+</span> <span class="dv">2</span>, color<span class="op">=</span><span class="st">'#bdc3c7'</span>, alpha<span class="op">=</span><span class="fl">0.4</span>, label<span class="op">=</span><span class="st">'Drinks Break Impact Window'</span> <span class="cf">if</span> db <span class="op">==</span> exact_drinks.iloc[<span class="dv">0</span>] <span class="cf">else</span> <span class="st">""</span>)</span>
+<span id="cb7-53"><a href="#cb7-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-54"><a href="#cb7-54" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Momentum break points</span></span>
+<span id="cb7-55"><a href="#cb7-55" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="st">'is_break_point'</span> <span class="kw">in</span> df_match.columns:</span>
+<span id="cb7-56"><a href="#cb7-56" aria-hidden="true" tabindex="-1"></a>        break_points <span class="op">=</span> df_match[df_match[<span class="st">'is_break_point'</span>]][<span class="st">'minute'</span>]</span>
+<span id="cb7-57"><a href="#cb7-57" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="kw">not</span> break_points.empty:</span>
+<span id="cb7-58"><a href="#cb7-58" aria-hidden="true" tabindex="-1"></a>            <span class="cf">for</span> bp <span class="kw">in</span> break_points:</span>
+<span id="cb7-59"><a href="#cb7-59" aria-hidden="true" tabindex="-1"></a>                ax.axvline(x<span class="op">=</span>bp, color<span class="op">=</span><span class="st">'#f39c12'</span>, linestyle<span class="op">=</span><span class="st">'--'</span>, linewidth<span class="op">=</span><span class="fl">2.5</span>, label<span class="op">=</span><span class="st">'Momentum Break Point'</span> <span class="cf">if</span> bp <span class="op">==</span> break_points.iloc[<span class="dv">0</span>] <span class="cf">else</span> <span class="st">""</span>)</span>
+<span id="cb7-60"><a href="#cb7-60" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-61"><a href="#cb7-61" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Goal events</span></span>
+<span id="cb7-62"><a href="#cb7-62" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="st">'is_goal'</span> <span class="kw">in</span> df_match.columns:</span>
+<span id="cb7-63"><a href="#cb7-63" aria-hidden="true" tabindex="-1"></a>        goals <span class="op">=</span> df_match[df_match[<span class="st">'is_goal'</span>]]</span>
+<span id="cb7-64"><a href="#cb7-64" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> i, row <span class="kw">in</span> goals.iterrows():</span>
+<span id="cb7-65"><a href="#cb7-65" aria-hidden="true" tabindex="-1"></a>            gx <span class="op">=</span> row[<span class="st">'minute'</span>]</span>
+<span id="cb7-66"><a href="#cb7-66" aria-hidden="true" tabindex="-1"></a>            gy <span class="op">=</span> <span class="dv">0</span>  <span class="co"># Fixed position on the zero line to avoid momentum bias</span></span>
+<span id="cb7-67"><a href="#cb7-67" aria-hidden="true" tabindex="-1"></a>            </span>
+<span id="cb7-68"><a href="#cb7-68" aria-hidden="true" tabindex="-1"></a>            <span class="co"># Using Segoe UI Emoji to prevent missing glyph warnings on Windows</span></span>
+<span id="cb7-69"><a href="#cb7-69" aria-hidden="true" tabindex="-1"></a>            ax.text(gx, gy, <span class="st">'⚽'</span>, fontsize<span class="op">=</span><span class="dv">12</span>, ha<span class="op">=</span><span class="st">'center'</span>, va<span class="op">=</span><span class="st">'center'</span>, zorder<span class="op">=</span><span class="dv">10</span>, fontname<span class="op">=</span><span class="st">'Segoe UI Emoji'</span>)</span>
+<span id="cb7-70"><a href="#cb7-70" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb7-71"><a href="#cb7-71" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="kw">not</span> goals.empty:</span>
+<span id="cb7-72"><a href="#cb7-72" aria-hidden="true" tabindex="-1"></a>            ax.plot([], [], <span class="st">' '</span>, label<span class="op">=</span><span class="st">'⚽ Goal'</span>)</span>
+<span id="cb7-73"><a href="#cb7-73" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-74"><a href="#cb7-74" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Axis titles and styling</span></span>
+<span id="cb7-75"><a href="#cb7-75" aria-hidden="true" tabindex="-1"></a>    ax.set_title(<span class="ss">f'Match Momentum: </span><span class="sc">{</span>home_team<span class="sc">}</span><span class="ss"> vs </span><span class="sc">{</span>away_team<span class="sc">}</span><span class="ss">'</span>, fontsize<span class="op">=</span><span class="dv">14</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>, pad<span class="op">=</span><span class="dv">10</span>)</span>
+<span id="cb7-76"><a href="#cb7-76" aria-hidden="true" tabindex="-1"></a>    ax.set_xlabel(<span class="st">'Minute'</span>, fontsize<span class="op">=</span><span class="dv">10</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>)</span>
+<span id="cb7-77"><a href="#cb7-77" aria-hidden="true" tabindex="-1"></a>    ax.set_ylabel(<span class="st">'Attacking Threat'</span>, fontsize<span class="op">=</span><span class="dv">10</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>)</span>
+<span id="cb7-78"><a href="#cb7-78" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb7-79"><a href="#cb7-79" aria-hidden="true" tabindex="-1"></a>    ax.set_xlim(<span class="dv">0</span>, <span class="dv">90</span>)</span>
+<span id="cb7-80"><a href="#cb7-80" aria-hidden="true" tabindex="-1"></a>    ax.set_xticks(np.arange(<span class="dv">0</span>, <span class="dv">91</span>, <span class="dv">5</span>)) </span>
+<span id="cb7-81"><a href="#cb7-81" aria-hidden="true" tabindex="-1"></a>    ax.set_yticks([]) </span>
+<span id="cb7-82"><a href="#cb7-82" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb7-83"><a href="#cb7-83" aria-hidden="true" tabindex="-1"></a>    ax.legend(loc<span class="op">=</span><span class="st">'upper left'</span>, bbox_to_anchor<span class="op">=</span>(<span class="dv">1</span>, <span class="dv">1</span>), fontsize<span class="op">=</span><span class="dv">8</span>)</span>
+<span id="cb7-84"><a href="#cb7-84" aria-hidden="true" tabindex="-1"></a>    ax.grid(axis<span class="op">=</span><span class="st">'x'</span>, linestyle<span class="op">=</span><span class="st">'--'</span>, alpha<span class="op">=</span><span class="fl">0.3</span>)</span>
+<span id="cb7-85"><a href="#cb7-85" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb7-86"><a href="#cb7-86" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> is_standalone:</span>
+<span id="cb7-87"><a href="#cb7-87" aria-hidden="true" tabindex="-1"></a>        plt.tight_layout()</span>
+<span id="cb7-88"><a href="#cb7-88" aria-hidden="true" tabindex="-1"></a>        plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<p>We will test the visualitaion on several exciting matches:</p>
+<div id="d71574cf" class="cell" data-execution_count="6">
+<details class="code-fold">
+<summary>View Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>match_ids <span class="op">=</span> [<span class="dv">15186972</span>, <span class="dv">12812993</span>, <span class="dv">12813007</span>, <span class="dv">15186899</span>, <span class="dv">15186501</span>, <span class="dv">12813006</span>]</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(nrows<span class="op">=</span><span class="dv">3</span>, ncols<span class="op">=</span><span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">20</span>, <span class="dv">15</span>))</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>axes <span class="op">=</span> axes.flatten() </span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i, match_id <span class="kw">in</span> <span class="bu">enumerate</span>(match_ids):</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>    plot_match_momentum(match_id, df_final, ax<span class="op">=</span>axes[i])</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Analysis_Water_Breaks_files/figure-html/cell-7-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>As we can clearly see in the visualized grids, the algorithm does an excellent job of identifying genuine momentum break points. It is designed to be rigorous: a simple, momentary change in possession is not enough to trigger a shift. Instead, the algorithm demands a substantial and sustained volume of attacking threat on both sides of the break point to classify it as a true, structural turning point in the match.</p>
+<p>When examining these plots, there are two methodological nuances to keep in mind. First, the match data is capped at exactly 90 minutes, meaning we naturally lose a small fraction of information from extended stoppage time at the end of the game. Second, the visual representation of the attacking threat is smoothed using spline interpolation. Raw, minute-by-minute football data is inherently noisy, with the momentum constantly oscillating back and forth. Spline smoothing filters out this micro-level variance, preventing the graph from displaying jagged, aggressive spikes for every minor action on the pitch. This allows us to focus purely on the broader, underlying macro-trends of match dominance.</p>
+<p>Up to this point, we’ve developed a formula we’re happy with for identifying momentum break points, finding an average of just over three break points per match. Now, we want to put our findings to a rigorous statistical test.</p>
+<p>Specifically, we will use a <strong>Monte Carlo Permutation Test</strong>. The goal here is to answer a simple question: Do momentum shifts happen around drinks breaks because of the break itself, or could it just be a random coincidence? To test this, we take the actual number of break points that occurred in a match and randomly shuffle their timestamps across the valid minutes of that game. We repeat this process 10,000 times. By counting how many times these randomized break points accidentally fall near a drinks break, we generate a baseline of “random chance.” If our actual observed data significantly deviates from this random baseline, we can confidently say the drinks breaks have a real impact.</p>
+<p>To run this test, we first need to define the drinks break “impact window” - the timeframe where we consider a momentum shift to be a direct result of the stoppage. We defined this window as starting <strong>one minute before</strong> the break and ending <strong>two minutes after</strong> it.</p>
+<ul>
+<li><strong>Why one minute before?</strong> Because our algorithm looks 5 minutes into the future to confirm a sustained momentum shift. If a break point is triggered one minute before the whistle, its validity is heavily dictated by what happens <em>during</em> and immediately <em>after</em> the break. Therefore, the drinks break directly influences this pre-whistle shift.</li>
+<li><strong>Why two minutes after?</strong> The effect of a stoppage isn’t instantaneous. When play resumes - usually from a dead ball or a throw-in - it takes a few moments for players to reorganize, for tactical adjustments to take shape, and for the match to find its rhythm again. The true impact of the break naturally unfolds over these first couple of minutes of resumed play.</li>
+</ul>
+<p>I want to emphasize that defining the exact size of this window is my personal, intuitive choice rather than a mathematically proven one. Selecting a different timeframe could certainly yield slightly different results. Ultimately, this decision relies entirely on my own perception of the game and how I personally understand the natural flow of a football match on the pitch.</p>
+<div id="824df324" class="cell" data-execution_count="7">
+<details class="code-fold">
+<summary>View Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ==========================================</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Prepare Drinks Break Windows</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="co"># ==========================================</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a window representing the impact period (4 minutes) around each drinks break</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>df_final[<span class="st">'is_drinks_break_window'</span>] <span class="op">=</span> <span class="va">False</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>exact_drinks <span class="op">=</span> df_final[df_final[<span class="st">'is_exact_drinks_break'</span>] <span class="op">==</span> <span class="va">True</span>]</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> _, row <span class="kw">in</span> exact_drinks.iterrows():</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>    m_id <span class="op">=</span> row[<span class="st">'match_id'</span>]</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>    db_min <span class="op">=</span> row[<span class="st">'minute'</span>]</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Window: one minute before, the break minute, and two minutes after</span></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>    window <span class="op">=</span> [db_min <span class="op">-</span> <span class="dv">1</span>, db_min, db_min <span class="op">+</span> <span class="dv">1</span>, db_min <span class="op">+</span> <span class="dv">2</span>]</span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Mark the window in the dataset</span></span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>    df_final.loc[(df_final[<span class="st">'match_id'</span>] <span class="op">==</span> m_id) <span class="op">&amp;</span> (df_final[<span class="st">'minute'</span>].isin(window)), <span class="st">'is_drinks_break_window'</span>] <span class="op">=</span> <span class="va">True</span></span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a><span class="co"># ==========================================</span></span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Filter Valid Minutes</span></span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a><span class="co"># ==========================================</span></span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter to valid minutes only (excluding the first and last 5 minutes of each half)</span></span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a>valid_mask <span class="op">=</span> ((df_final[<span class="st">'minute'</span>] <span class="op">&gt;=</span> <span class="dv">6</span>) <span class="op">&amp;</span> (df_final[<span class="st">'minute'</span>] <span class="op">&lt;=</span> <span class="dv">40</span>)) <span class="op">|</span> <span class="op">\</span></span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a>             ((df_final[<span class="st">'minute'</span>] <span class="op">&gt;=</span> <span class="dv">51</span>) <span class="op">&amp;</span> (df_final[<span class="st">'minute'</span>] <span class="op">&lt;=</span> <span class="dv">85</span>))</span>
+<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a>df_valid <span class="op">=</span> df_final[valid_mask].copy()</span>
+<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a><span class="co"># Count break points that occurred within drinks windows</span></span>
+<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a>observed_bps <span class="op">=</span> df_valid[df_valid[<span class="st">'is_drinks_break_window'</span>]][<span class="st">'is_break_point'</span>].<span class="bu">sum</span>()</span>
+<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-28"><a href="#cb9-28" aria-hidden="true" tabindex="-1"></a><span class="co"># ==========================================</span></span>
+<span id="cb9-29"><a href="#cb9-29" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. Monte Carlo Permutation Test</span></span>
+<span id="cb9-30"><a href="#cb9-30" aria-hidden="true" tabindex="-1"></a><span class="co"># ==========================================</span></span>
+<span id="cb9-31"><a href="#cb9-31" aria-hidden="true" tabindex="-1"></a>n_iterations <span class="op">=</span> <span class="dv">10000</span></span>
+<span id="cb9-32"><a href="#cb9-32" aria-hidden="true" tabindex="-1"></a>simulated_results <span class="op">=</span> np.zeros(n_iterations)</span>
+<span id="cb9-33"><a href="#cb9-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-34"><a href="#cb9-34" aria-hidden="true" tabindex="-1"></a><span class="co"># Permute break point labels within each match over valid minutes</span></span>
+<span id="cb9-35"><a href="#cb9-35" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(n_iterations):</span>
+<span id="cb9-36"><a href="#cb9-36" aria-hidden="true" tabindex="-1"></a>    shuffled_bps <span class="op">=</span> df_valid.groupby(<span class="st">'match_id'</span>)[<span class="st">'is_break_point'</span>].transform(np.random.permutation)</span>
+<span id="cb9-37"><a href="#cb9-37" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb9-38"><a href="#cb9-38" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Count how many permuted break points fall within drinks windows</span></span>
+<span id="cb9-39"><a href="#cb9-39" aria-hidden="true" tabindex="-1"></a>    sim_count <span class="op">=</span> shuffled_bps[df_valid[<span class="st">'is_drinks_break_window'</span>]].<span class="bu">sum</span>()</span>
+<span id="cb9-40"><a href="#cb9-40" aria-hidden="true" tabindex="-1"></a>    simulated_results[i] <span class="op">=</span> sim_count</span>
+<span id="cb9-41"><a href="#cb9-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-42"><a href="#cb9-42" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute the exact p-value using permutation test correction</span></span>
+<span id="cb9-43"><a href="#cb9-43" aria-hidden="true" tabindex="-1"></a>p_value <span class="op">=</span> (np.<span class="bu">sum</span>(simulated_results <span class="op">&gt;=</span> observed_bps) <span class="op">+</span> <span class="dv">1</span>) <span class="op">/</span> (n_iterations <span class="op">+</span> <span class="dv">1</span>)</span>
+<span id="cb9-44"><a href="#cb9-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-45"><a href="#cb9-45" aria-hidden="true" tabindex="-1"></a><span class="co"># ==========================================</span></span>
+<span id="cb9-46"><a href="#cb9-46" aria-hidden="true" tabindex="-1"></a><span class="co"># 4. Print Results</span></span>
+<span id="cb9-47"><a href="#cb9-47" aria-hidden="true" tabindex="-1"></a><span class="co"># ==========================================</span></span>
+<span id="cb9-48"><a href="#cb9-48" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">=== Monte Carlo Simulation Results ==="</span>)</span>
+<span id="cb9-49"><a href="#cb9-49" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Average random break points in windows: </span><span class="sc">{</span>simulated_results<span class="sc">.</span>mean()<span class="sc">:.2f}</span><span class="ss">"</span>)</span>
+<span id="cb9-50"><a href="#cb9-50" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Observed break points: </span><span class="sc">{</span>observed_bps<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb9-51"><a href="#cb9-51" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"P-value: </span><span class="sc">{</span>p_value<span class="sc">:.4f}</span><span class="ss">"</span>)</span>
+<span id="cb9-52"><a href="#cb9-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-53"><a href="#cb9-53" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> p_value <span class="op">&lt;</span> <span class="fl">0.05</span>:</span>
+<span id="cb9-54"><a href="#cb9-54" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">CONCLUSION: SIGNIFICANT 🟢"</span>)</span>
+<span id="cb9-55"><a href="#cb9-55" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"The number of momentum shifts around drinks breaks is significantly higher than random chance."</span>)</span>
+<span id="cb9-56"><a href="#cb9-56" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb9-57"><a href="#cb9-57" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">CONCLUSION: NOT SIGNIFICANT 🔴"</span>)</span>
+<span id="cb9-58"><a href="#cb9-58" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"The observed momentum shifts around drinks breaks could easily occur by random chance."</span>)</span>
+<span id="cb9-59"><a href="#cb9-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-60"><a href="#cb9-60" aria-hidden="true" tabindex="-1"></a><span class="co"># ==========================================</span></span>
+<span id="cb9-61"><a href="#cb9-61" aria-hidden="true" tabindex="-1"></a><span class="co"># 5. Plot the Distribution</span></span>
+<span id="cb9-62"><a href="#cb9-62" aria-hidden="true" tabindex="-1"></a><span class="co"># ==========================================</span></span>
+<span id="cb9-63"><a href="#cb9-63" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">6</span>))</span>
+<span id="cb9-64"><a href="#cb9-64" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-65"><a href="#cb9-65" aria-hidden="true" tabindex="-1"></a>counts, bins, patches <span class="op">=</span> plt.hist(simulated_results, bins<span class="op">=</span><span class="bu">range</span>(<span class="bu">int</span>(simulated_results.<span class="bu">min</span>()), <span class="bu">int</span>(simulated_results.<span class="bu">max</span>()) <span class="op">+</span> <span class="dv">2</span>), </span>
+<span id="cb9-66"><a href="#cb9-66" aria-hidden="true" tabindex="-1"></a>                                 color<span class="op">=</span><span class="st">'skyblue'</span>, edgecolor<span class="op">=</span><span class="st">'white'</span>, align<span class="op">=</span><span class="st">'left'</span>, alpha<span class="op">=</span><span class="fl">0.8</span>)</span>
+<span id="cb9-67"><a href="#cb9-67" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-68"><a href="#cb9-68" aria-hidden="true" tabindex="-1"></a>plt.axvline(x<span class="op">=</span>observed_bps, color<span class="op">=</span><span class="st">'red'</span>, linestyle<span class="op">=</span><span class="st">'--'</span>, linewidth<span class="op">=</span><span class="dv">2</span>, label<span class="op">=</span><span class="ss">f'Observed Value (</span><span class="sc">{</span>observed_bps<span class="sc">}</span><span class="ss">)'</span>)</span>
+<span id="cb9-69"><a href="#cb9-69" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-70"><a href="#cb9-70" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Monte Carlo Test: Break Points in Drinks Break Windows</span><span class="ch">\n</span><span class="st">(10,000 Simulations)'</span>, fontsize<span class="op">=</span><span class="dv">14</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>, pad<span class="op">=</span><span class="dv">15</span>)</span>
+<span id="cb9-71"><a href="#cb9-71" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Number of Break Points in Window'</span>, fontsize<span class="op">=</span><span class="dv">12</span>)</span>
+<span id="cb9-72"><a href="#cb9-72" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Frequency (Simulations)'</span>, fontsize<span class="op">=</span><span class="dv">12</span>)</span>
+<span id="cb9-73"><a href="#cb9-73" aria-hidden="true" tabindex="-1"></a>plt.legend(fontsize<span class="op">=</span><span class="dv">12</span>)</span>
+<span id="cb9-74"><a href="#cb9-74" aria-hidden="true" tabindex="-1"></a>plt.grid(axis<span class="op">=</span><span class="st">'y'</span>, linestyle<span class="op">=</span><span class="st">'--'</span>, alpha<span class="op">=</span><span class="fl">0.3</span>)</span>
+<span id="cb9-75"><a href="#cb9-75" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-76"><a href="#cb9-76" aria-hidden="true" tabindex="-1"></a><span class="co"># Highlight the tail beyond the observed count</span></span>
+<span id="cb9-77"><a href="#cb9-77" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> patch, left_edge <span class="kw">in</span> <span class="bu">zip</span>(patches, bins[:<span class="op">-</span><span class="dv">1</span>]):</span>
+<span id="cb9-78"><a href="#cb9-78" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> left_edge <span class="op">&gt;=</span> observed_bps:</span>
+<span id="cb9-79"><a href="#cb9-79" aria-hidden="true" tabindex="-1"></a>        patch.set_facecolor(<span class="st">'salmon'</span>)</span>
+<span id="cb9-80"><a href="#cb9-80" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-81"><a href="#cb9-81" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb9-82"><a href="#cb9-82" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+=== Monte Carlo Simulation Results ===
+Average random break points in windows: 35.43
+Observed break points: 22
+P-value: 0.9967
+
+CONCLUSION: NOT SIGNIFICANT 🔴
+The observed momentum shifts around drinks breaks could easily occur by random chance.</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Analysis_Water_Breaks_files/figure-html/cell-8-output-2.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Looking at the results of our 10,000 simulations, we observed only 22 momentum break points during drinks break windows - notably lower than the randomly expected average of 35.43. I didn’t necessarily approach this expecting drinks breaks to be major influence for momentum shifts, and these results clearly confirm that, as a general rule, they are not.</p>
+<p>In fact, the unusually low number of observed shifts highlights a different dynamic: rather than flipping momentum from one side to the other, a drinks break often acts as a general “reset” button. It calms the overall pace of the match. Both teams catch their breath, the general intensity drops, and the game tends to enter a more neutral, balanced phase. Because neither side immediately establishes sustained attacking pressure after the whistle, new momentum shifts are actually prevented from forming.</p>
+<p>That being said, football is a highly complex game driven by countless variables, and a short stoppage is just one piece of the puzzle. While the overall statistical trend shows a cooling-off effect, a drinks break can absolutely be the direct cause of a momentum shift in specific scenarios - for example, if a manager uses the pause to deliver a crucial tactical change. It is simply that these instances are specific exceptions rather than the general rule.</p>
+<p>So we’ve established that, in general, drinks breaks not only fail to trigger momentum shifts, but they actually decrease the likelihood of one occurring. But could the situation be different when we look specifically at momentum shifts favoring the stronger team? I decided to test this as well.</p>
+<p>I defined a team as the clear “favorite” if their pre-match betting odds were 2.0 or lower. We will examine this using the exact same methodology as before. we will run another Monte Carlo simulation, but this time we isolate only the specific break points where the momentum swung from the underdog to the favorite. By randomly shuffling these specific shifts across the valid minutes of the match 10,000 times, we can test whether drinks breaks act as a unique catalyst for favorites to take control, or if any overlap is still just random chance.</p>
+<div id="4860d845" class="cell" data-execution_count="8">
+<details class="code-fold">
+<summary>View Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ==========================================</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Prepare Drinks Break Windows &amp; Momentum Direction</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="co"># ==========================================</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a window representing the impact period (4 minutes) around each drinks break</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>df_final[<span class="st">'is_drinks_break_window'</span>] <span class="op">=</span> <span class="va">False</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>exact_drinks <span class="op">=</span> df_final[df_final[<span class="st">'is_exact_drinks_break'</span>] <span class="op">==</span> <span class="va">True</span>]</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> _, row <span class="kw">in</span> exact_drinks.iterrows():</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>    m_id <span class="op">=</span> row[<span class="st">'match_id'</span>]</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>    db_min <span class="op">=</span> row[<span class="st">'minute'</span>]</span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Window: one minute before, the break minute, and two minutes after</span></span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>    window <span class="op">=</span> [db_min <span class="op">-</span> <span class="dv">1</span>, db_min, db_min <span class="op">+</span> <span class="dv">1</span>, db_min <span class="op">+</span> <span class="dv">2</span>]</span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Mark the window in the dataset</span></span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>    df_final.loc[(df_final[<span class="st">'match_id'</span>] <span class="op">==</span> m_id) <span class="op">&amp;</span> (df_final[<span class="st">'minute'</span>].isin(window)), <span class="st">'is_drinks_break_window'</span>] <span class="op">=</span> <span class="va">True</span></span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate momentum direction BEFORE filtering minutes to keep natural sequence!</span></span>
+<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a>df_final[<span class="st">'diff_1'</span>] <span class="op">=</span> df_final.groupby(<span class="st">'match_id'</span>)[<span class="st">'value'</span>].shift(<span class="op">-</span><span class="dv">1</span>) <span class="op">-</span> df_final[<span class="st">'value'</span>]</span>
+<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a><span class="co"># ==========================================</span></span>
+<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Filter Valid Minutes &amp; Matches</span></span>
+<span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a><span class="co"># ==========================================</span></span>
+<span id="cb11-23"><a href="#cb11-23" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter to valid minutes only (excluding the first and last 5 minutes of each half)</span></span>
+<span id="cb11-24"><a href="#cb11-24" aria-hidden="true" tabindex="-1"></a>valid_mask <span class="op">=</span> ((df_final[<span class="st">'minute'</span>] <span class="op">&gt;=</span> <span class="dv">6</span>) <span class="op">&amp;</span> (df_final[<span class="st">'minute'</span>] <span class="op">&lt;=</span> <span class="dv">40</span>)) <span class="op">|</span> <span class="op">\</span></span>
+<span id="cb11-25"><a href="#cb11-25" aria-hidden="true" tabindex="-1"></a>             ((df_final[<span class="st">'minute'</span>] <span class="op">&gt;=</span> <span class="dv">51</span>) <span class="op">&amp;</span> (df_final[<span class="st">'minute'</span>] <span class="op">&lt;=</span> <span class="dv">85</span>))</span>
+<span id="cb11-26"><a href="#cb11-26" aria-hidden="true" tabindex="-1"></a>df_valid <span class="op">=</span> df_final[valid_mask].copy()</span>
+<span id="cb11-27"><a href="#cb11-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-28"><a href="#cb11-28" aria-hidden="true" tabindex="-1"></a><span class="co"># Drop matches where there is no clear favorite (e.g., 'Even')</span></span>
+<span id="cb11-29"><a href="#cb11-29" aria-hidden="true" tabindex="-1"></a>df_valid <span class="op">=</span> df_valid[df_valid[<span class="st">'favorite_team'</span>] <span class="op">!=</span> <span class="st">'Even'</span>]</span>
+<span id="cb11-30"><a href="#cb11-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-31"><a href="#cb11-31" aria-hidden="true" tabindex="-1"></a><span class="co"># ==========================================</span></span>
+<span id="cb11-32"><a href="#cb11-32" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. Define: Momentum shift from Underdog to Favorite</span></span>
+<span id="cb11-33"><a href="#cb11-33" aria-hidden="true" tabindex="-1"></a><span class="co"># ==========================================</span></span>
+<span id="cb11-34"><a href="#cb11-34" aria-hidden="true" tabindex="-1"></a>is_underdog_home <span class="op">=</span> df_valid[<span class="st">'underdog_team'</span>] <span class="op">==</span> df_valid[<span class="st">'home_team'</span>]</span>
+<span id="cb11-35"><a href="#cb11-35" aria-hidden="true" tabindex="-1"></a>is_underdog_away <span class="op">=</span> df_valid[<span class="st">'underdog_team'</span>] <span class="op">==</span> df_valid[<span class="st">'away_team'</span>]</span>
+<span id="cb11-36"><a href="#cb11-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-37"><a href="#cb11-37" aria-hidden="true" tabindex="-1"></a><span class="co"># Conditions for a shift to the favorite:</span></span>
+<span id="cb11-38"><a href="#cb11-38" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Underdog is Home (positive momentum) -&gt; Shift downwards (negative derivative)</span></span>
+<span id="cb11-39"><a href="#cb11-39" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Underdog is Away (negative momentum) -&gt; Shift upwards (positive derivative)</span></span>
+<span id="cb11-40"><a href="#cb11-40" aria-hidden="true" tabindex="-1"></a>shift_to_fav <span class="op">=</span> (is_underdog_home <span class="op">&amp;</span> (df_valid[<span class="st">'diff_1'</span>] <span class="op">&lt;</span> <span class="dv">0</span>)) <span class="op">|</span> (is_underdog_away <span class="op">&amp;</span> (df_valid[<span class="st">'diff_1'</span>] <span class="op">&gt;</span> <span class="dv">0</span>))</span>
+<span id="cb11-41"><a href="#cb11-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-42"><a href="#cb11-42" aria-hidden="true" tabindex="-1"></a><span class="co"># Intersect the condition with the actual existence of a break point</span></span>
+<span id="cb11-43"><a href="#cb11-43" aria-hidden="true" tabindex="-1"></a>df_valid[<span class="st">'is_break_to_favorite'</span>] <span class="op">=</span> df_valid[<span class="st">'is_break_point'</span>] <span class="op">&amp;</span> shift_to_fav</span>
+<span id="cb11-44"><a href="#cb11-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-45"><a href="#cb11-45" aria-hidden="true" tabindex="-1"></a><span class="co"># Count break points that occurred within drinks windows</span></span>
+<span id="cb11-46"><a href="#cb11-46" aria-hidden="true" tabindex="-1"></a>total_bps_to_fav <span class="op">=</span> df_valid[<span class="st">'is_break_to_favorite'</span>].<span class="bu">sum</span>()</span>
+<span id="cb11-47"><a href="#cb11-47" aria-hidden="true" tabindex="-1"></a>observed_bps <span class="op">=</span> df_valid[df_valid[<span class="st">'is_drinks_break_window'</span>]][<span class="st">'is_break_to_favorite'</span>].<span class="bu">sum</span>()</span>
+<span id="cb11-48"><a href="#cb11-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-49"><a href="#cb11-49" aria-hidden="true" tabindex="-1"></a><span class="co"># ==========================================</span></span>
+<span id="cb11-50"><a href="#cb11-50" aria-hidden="true" tabindex="-1"></a><span class="co"># 4. Monte Carlo Permutation Test</span></span>
+<span id="cb11-51"><a href="#cb11-51" aria-hidden="true" tabindex="-1"></a><span class="co"># ==========================================</span></span>
+<span id="cb11-52"><a href="#cb11-52" aria-hidden="true" tabindex="-1"></a>n_iterations <span class="op">=</span> <span class="dv">10000</span></span>
+<span id="cb11-53"><a href="#cb11-53" aria-hidden="true" tabindex="-1"></a>simulated_results <span class="op">=</span> np.zeros(n_iterations)</span>
+<span id="cb11-54"><a href="#cb11-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-55"><a href="#cb11-55" aria-hidden="true" tabindex="-1"></a><span class="co"># Permute 'is_break_to_favorite' labels within each match</span></span>
+<span id="cb11-56"><a href="#cb11-56" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(n_iterations):</span>
+<span id="cb11-57"><a href="#cb11-57" aria-hidden="true" tabindex="-1"></a>    shuffled_bps <span class="op">=</span> df_valid.groupby(<span class="st">'match_id'</span>)[<span class="st">'is_break_to_favorite'</span>].transform(np.random.permutation)</span>
+<span id="cb11-58"><a href="#cb11-58" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb11-59"><a href="#cb11-59" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Count how many permuted break points fall within drinks windows</span></span>
+<span id="cb11-60"><a href="#cb11-60" aria-hidden="true" tabindex="-1"></a>    sim_count <span class="op">=</span> shuffled_bps[df_valid[<span class="st">'is_drinks_break_window'</span>]].<span class="bu">sum</span>()</span>
+<span id="cb11-61"><a href="#cb11-61" aria-hidden="true" tabindex="-1"></a>    simulated_results[i] <span class="op">=</span> sim_count</span>
+<span id="cb11-62"><a href="#cb11-62" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-63"><a href="#cb11-63" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute p-values for both tails (+1 added to both numerator and denominator as standard practice)</span></span>
+<span id="cb11-64"><a href="#cb11-64" aria-hidden="true" tabindex="-1"></a>p_value_left <span class="op">=</span> (np.<span class="bu">sum</span>(simulated_results <span class="op">&lt;=</span> observed_bps) <span class="op">+</span> <span class="dv">1</span>) <span class="op">/</span> (n_iterations <span class="op">+</span> <span class="dv">1</span>)</span>
+<span id="cb11-65"><a href="#cb11-65" aria-hidden="true" tabindex="-1"></a>p_value_right <span class="op">=</span> (np.<span class="bu">sum</span>(simulated_results <span class="op">&gt;=</span> observed_bps) <span class="op">+</span> <span class="dv">1</span>) <span class="op">/</span> (n_iterations <span class="op">+</span> <span class="dv">1</span>)</span>
+<span id="cb11-66"><a href="#cb11-66" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-67"><a href="#cb11-67" aria-hidden="true" tabindex="-1"></a><span class="co"># ==========================================</span></span>
+<span id="cb11-68"><a href="#cb11-68" aria-hidden="true" tabindex="-1"></a><span class="co"># 5. Print Results</span></span>
+<span id="cb11-69"><a href="#cb11-69" aria-hidden="true" tabindex="-1"></a><span class="co"># ==========================================</span></span>
+<span id="cb11-70"><a href="#cb11-70" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">=== Monte Carlo Results: Underdog to Favorite Shifts ==="</span>)</span>
+<span id="cb11-71"><a href="#cb11-71" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Average expected by random chance: </span><span class="sc">{</span>simulated_results<span class="sc">.</span>mean()<span class="sc">:.2f}</span><span class="ss">"</span>)</span>
+<span id="cb11-72"><a href="#cb11-72" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Actually observed: </span><span class="sc">{</span>observed_bps<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb11-73"><a href="#cb11-73" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"P-value (Left-tail / Suppression): </span><span class="sc">{</span>p_value_left<span class="sc">:.4f}</span><span class="ss">"</span>)</span>
+<span id="cb11-74"><a href="#cb11-74" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"P-value (Right-tail / Catalyst): </span><span class="sc">{</span>p_value_right<span class="sc">:.4f}</span><span class="ss">"</span>)</span>
+<span id="cb11-75"><a href="#cb11-75" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-76"><a href="#cb11-76" aria-hidden="true" tabindex="-1"></a><span class="co"># ==========================================</span></span>
+<span id="cb11-77"><a href="#cb11-77" aria-hidden="true" tabindex="-1"></a><span class="co"># 6. Plot the Distribution</span></span>
+<span id="cb11-78"><a href="#cb11-78" aria-hidden="true" tabindex="-1"></a><span class="co"># ==========================================</span></span>
+<span id="cb11-79"><a href="#cb11-79" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">6</span>))</span>
+<span id="cb11-80"><a href="#cb11-80" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-81"><a href="#cb11-81" aria-hidden="true" tabindex="-1"></a>counts, bins, patches <span class="op">=</span> plt.hist(simulated_results, bins<span class="op">=</span><span class="bu">range</span>(<span class="bu">int</span>(simulated_results.<span class="bu">min</span>()), <span class="bu">int</span>(simulated_results.<span class="bu">max</span>()) <span class="op">+</span> <span class="dv">2</span>), </span>
+<span id="cb11-82"><a href="#cb11-82" aria-hidden="true" tabindex="-1"></a>                                 color<span class="op">=</span><span class="st">'#9b59b6'</span>, edgecolor<span class="op">=</span><span class="st">'white'</span>, align<span class="op">=</span><span class="st">'left'</span>, alpha<span class="op">=</span><span class="fl">0.8</span>)</span>
+<span id="cb11-83"><a href="#cb11-83" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-84"><a href="#cb11-84" aria-hidden="true" tabindex="-1"></a>plt.axvline(x<span class="op">=</span>observed_bps, color<span class="op">=</span><span class="st">'red'</span>, linestyle<span class="op">=</span><span class="st">'--'</span>, linewidth<span class="op">=</span><span class="dv">2</span>, label<span class="op">=</span><span class="ss">f'Observed Value (</span><span class="sc">{</span>observed_bps<span class="sc">}</span><span class="ss">)'</span>)</span>
+<span id="cb11-85"><a href="#cb11-85" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-86"><a href="#cb11-86" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Monte Carlo Test: Shifts to Favorite in Drinks Breaks</span><span class="ch">\n</span><span class="st">(10,000 Simulations)'</span>, fontsize<span class="op">=</span><span class="dv">14</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>, pad<span class="op">=</span><span class="dv">15</span>)</span>
+<span id="cb11-87"><a href="#cb11-87" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Number of Shifts in Window'</span>, fontsize<span class="op">=</span><span class="dv">12</span>)</span>
+<span id="cb11-88"><a href="#cb11-88" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Frequency (Simulations)'</span>, fontsize<span class="op">=</span><span class="dv">12</span>)</span>
+<span id="cb11-89"><a href="#cb11-89" aria-hidden="true" tabindex="-1"></a>plt.legend(fontsize<span class="op">=</span><span class="dv">12</span>)</span>
+<span id="cb11-90"><a href="#cb11-90" aria-hidden="true" tabindex="-1"></a>plt.grid(axis<span class="op">=</span><span class="st">'y'</span>, linestyle<span class="op">=</span><span class="st">'--'</span>, alpha<span class="op">=</span><span class="fl">0.3</span>)</span>
+<span id="cb11-91"><a href="#cb11-91" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-92"><a href="#cb11-92" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb11-93"><a href="#cb11-93" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+=== Monte Carlo Results: Underdog to Favorite Shifts ===
+Average expected by random chance: 14.70
+Actually observed: 10
+P-value (Left-tail / Suppression): 0.1174
+P-value (Right-tail / Catalyst): 0.9320</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Analysis_Water_Breaks_files/figure-html/cell-9-output-2.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The results here provide a fascinating nuance. We observed 10 instances where momentum shifted in favor of the pre-match favorite during a drinks break window. It is entirely possible - and even likely - that in these specific matches, the stoppage was the direct catalyst for the shift, perhaps allowing a manager to make a crucial tactical change that turned the game around.</p>
+<p>However, looking at the broader statistical picture, this number (10) is still lower than what we would expect to see by pure random chance (14.70). This highlights a crucial distinction: while a drinks break <em>can</em> certainly trigger a momentum swing for the stronger team, it does not do so systematically. The power dynamic between a favorite and an underdog doesn’t turn the drinks break into a reliable tactical springboard. Even when factoring in team strength, the overall trend persists - drinks breaks generally tend to cool the game down rather than act as consistent catalysts for momentum shifts.</p>
+<p>This brings us to what I believe is the bigger picture: football is a game of personal interpretation, and working with data is exactly the same. The choices I made throughout this project shaped the final results, and they reflect my own personal view of the game.</p>
+<p>This doesn’t mean it is an absolute rule that drinks breaks always slow the game down and cause fewer momentum shifts; we can certainly find specific matches where the exact opposite happened. Ultimately, in a sport that is so much more than just a collection of stats, it is sometimes hard to see the whole picture just by looking at the numbers.</p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

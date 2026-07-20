@@ -1,0 +1,15 @@
+---
+title: "About Me"
+---
+
+I combine strong analytical skills with practical experience in data processing and spatial analysis. 
+
+### Technical Skills
+* **Programming & Data Analysis:** Python, R, SQL, Excel
+* **Geographic Information Systems:** ArcGIS Pro, QGIS, spatial joins and visualizations
+
+Feel free to connect with me!
+
+* **LinkedIn:** [https://www.linkedin.com/in/maayan-sarfati-098556383/]
+* **GitHub:** [https://github.com/maayansarfati]
+* **Email:** [maayansarfati@gmail.com]

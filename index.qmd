@@ -1,0 +1,13 @@
+---
+title: "Welcome to My Data Portfolio"
+---
+
+Hi, I'm Maayan! 
+
+I am a Data Science and Geoinformatics student passionate about uncovering insights from complex datasets. My work bridges the gap between statistical analysis and spatial data, utilizing tools across Python, R, and various GIS platforms. 
+
+As I approach the completion of my degree this August, I am excited to share some of my recent projects.
+
+### Featured Projects
+
+* [**Football Match Momentum & Events Analysis**](Analysis_Water_Breaks.ipynb) - A data-driven exploration of how drinks breaks affect attacking momentum in football, using web-scraped data from Sofascore.

@@ -1,0 +1,20 @@
+project:
+  type: website
+
+website:
+  title: "Maayan's Portfolio"
+  navbar:
+    left:
+      - href: index.qmd
+        text: Home
+      - href: Analysis_Water_Breaks.ipynb
+        text: Football Analytics
+      - href: about.qmd
+        text: About
+
+format:
+  html:
+    theme: cosmo
+    code-fold: true
+    code-summary: "Show Code"
+    toc: true
