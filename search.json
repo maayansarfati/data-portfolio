@@ -4,14 +4,14 @@
     "href": "index.html",
     "title": "Welcome to My Data Portfolio",
     "section": "",
-    "text": "Hi, I’m Maayan!\nI am a Data Science and Geoinformatics student passionate about uncovering insights from complex datasets. My work bridges the gap between statistical analysis and spatial data, utilizing tools across Python, R, and various GIS platforms.\nAs I approach the completion of my degree this August, I am excited to share some of my recent projects.\n\nFeatured Projects\n\nFootball Match Momentum & Events Analysis - A data-driven exploration of how drinks breaks affect attacking momentum in football, using web-scraped data from Sofascore."
+    "text": "Hi, I’m Maayan!\nI recently graduated with honors from the Hebrew University of Jerusalem, with a double major in Data Science and Geoinformatics. I am passionate about uncovering insights from complex datasets, and my work bridges the gap between statistical analysis and spatial data using Python, R, SQL and various GIS platforms.\nI have a strong interest in sports analytics, where I love applying my skills to dive deep into game data and uncover hidden trends. Additionally, I am a big believer in continuous learning - I constantly explore and experiment with the latest AI tools to expand my skill set and optimize my analytical workflows.\nWelcome to my portfolio, where I share some of my favorite recent projects!\n\nFeatured Projects\n\nFootball Match Momentum & Events Analysis - A data-driven exploration of how drinks breaks affect attacking momentum in football, using web-scraped data from Sofascore."
   },
   {
     "objectID": "about.html",
     "href": "about.html",
     "title": "About Me",
     "section": "",
-    "text": "I combine strong analytical skills with practical experience in data processing and spatial analysis.\n\nTechnical Skills\n\nProgramming & Data Analysis: Python, R, SQL, Excel\nGeographic Information Systems: ArcGIS Pro, QGIS, spatial joins and visualizations\n\nFeel free to connect with me!\n\nLinkedIn: [https://www.linkedin.com/in/maayan-sarfati-098556383/]\nGitHub: [https://github.com/maayansarfati]\nEmail: [maayansarfati@gmail.com]"
+    "text": "I combine strong analytical skills with practical experience in data processing and spatial analysis.\n\nTechnical Skills\n\nProgramming & Data Analysis: Python, R, SQL, Excel\nGeographic Information Systems: ArcGIS Pro, QGIS, spatial joins and visualizations\n\nFeel free to connect with me!\n\nLinkedIn: Maayan Sarfati\nGitHub: maayansarfati\nEmail: maayansarfati@gmail.com"
   },
   {
     "objectID": "Analysis_Water_Breaks.html",
